@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * @fileoverview Login page for the "/login" route. Renders the Google sign-in
  * button, handles authentication via AuthContext, and redirects authenticated
