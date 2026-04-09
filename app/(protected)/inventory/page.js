@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 /**
  * @fileoverview Displays items organized by storage location. Tabs allow filtering

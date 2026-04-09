@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 /**
  * @fileoverview A navigation bar component which persists across the entire application

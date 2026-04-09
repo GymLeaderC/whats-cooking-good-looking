@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 /**
  * @fileoverview Renders inventory items grouped by category.

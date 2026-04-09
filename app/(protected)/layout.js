@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 /**
  * @fileoverview Layout for all protected pages. Renders the persistent top Navbar 
