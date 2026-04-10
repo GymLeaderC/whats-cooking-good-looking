@@ -55,13 +55,26 @@ export default function GroceryAddModal({ isOpen, onConfirm, onCancel }) {
         />
 
         {/* Category Input */}
-        <input
+        <select
           name="category"
           value={formData.category}
           onChange={handleChange}
-          placeholder="Category"
           className="w-full border rounded p-2"
-        />
+        >
+          <option value="">Select a category</option>
+          <option value="Produce">Produce</option>
+          <option value="Meat">Meat</option>
+          <option value="Dairy">Dairy</option>
+          <option value="Bakery">Bakery</option>
+          <option value="Dry Goods">Dry Goods</option>
+          <option value="Canned Goods">Canned Goods</option>
+          <option value="Frozen">Frozen</option>
+          <option value="Snacks">Snacks</option>
+          <option value="Beverages">Beverages</option>
+          <option value="Household">Household</option>
+          <option value="Other">Other</option>
+
+        </select>
 
         {/* Confirm and Cancel Buttons */}
         <div className="flex justify-end gap-2">
