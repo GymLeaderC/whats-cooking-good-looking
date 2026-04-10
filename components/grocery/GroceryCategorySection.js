@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @fileoverview Renders a single category section (e.g., "Produce", "Meat").
  * Section header is clickable to collapse/expand the list of items.
@@ -6,8 +8,37 @@
  * @version 1.0.0
  */
 
-export default function GroceryCategorySection() {
-  return (
+import { useState } from "react";
+import GroceryItem from "@/components/grocery/GroceryItem";
 
+export default function GroceryCategorySection({ category, items, onCheck, onRemove }) {
+  const [isExpanded, setIsExpanded] = useState(true);
+
+  return (
+    <div className="border rounded-lg p-4">
+
+      {/* Category header - clickable to toggle collapse */}
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="flex items-center justify-between w-full font-semibold text-lg"
+      >
+        <span>{category}</span>
+        <span className="text-gray-500">{isExpanded ? "▼" : "▶"}</span>
+      </button>
+
+      {/* Items - rendered only if expanded */}
+      {isExpanded && (
+        <div className="mt-4 space-y-2">
+          {items.map((item) => (
+            <GroceryItem 
+              key={item.id} 
+              item={item}
+              onCheck={onCheck}
+              onRemove={onRemove} 
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
