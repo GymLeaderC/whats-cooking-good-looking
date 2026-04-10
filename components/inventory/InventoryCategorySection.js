@@ -11,7 +11,7 @@
 import { useState } from "react";
 import InventoryItem from "@/components/inventory/InventoryItem";
 
-export default function CategorySection({ category, items }) {
+export default function InventoryCategorySection({ category, items }) {
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
