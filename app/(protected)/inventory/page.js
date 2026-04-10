@@ -4,7 +4,7 @@
  * @fileoverview Displays items organized by storage location. Tabs allow filtering
  * by location. Items are grouped together by category within each location. 
  * @author Joshua Couto
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 import { useState } from "react";
@@ -28,7 +28,7 @@ const TABS = [
   { id: "fridge", label: "Fridge" },
   { id: "freezer", label: "Freezer" },
   { id: "pantry", label: "Pantry" },
-]
+];
 
 export default function InventoryPage() {
   const [activeTab, setActiveTab] = useState("all");
@@ -40,7 +40,7 @@ export default function InventoryPage() {
 
   return (
     <div className="p-4">
-      <h1 className="text-3x1 font-bold mb-6">Inventory</h1>
+      <h1 className="text-3xl font-bold mb-6">Inventory</h1>
 
       {/* Tab Navigation */}
       <InventoryTabs tabs={TABS} activeTab={activeTab} onTabChange={setActiveTab} />

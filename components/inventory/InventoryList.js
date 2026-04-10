@@ -5,7 +5,7 @@
  * Each category is a collapsible section. Items within each category are 
  * rendered via InventoryItem.
  * @author Joshua Couto
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 import { useState } from "react";
@@ -15,7 +15,7 @@ export default function InventoryList({ items }) {
   const groupedByCategory = items.reduce((groups, item) => {
     const category = item.category || "Other";
     
-    if (!groups[category]) group[category] = [];
+    if (!groups[category]) groups[category] = [];
     groups[category].push(item);
     return groups;
   }, {});

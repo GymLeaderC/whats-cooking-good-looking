@@ -14,7 +14,7 @@ export default function InventoryItem({ item }) {
           {item.quantity} {item.unit}
         </p>
       </div>
-      <span className="text-xs bg-gray-200 px-2 py-1 rounded">{items.category}</span>
+      <span className="text-xs bg-gray-200 px-2 py-1 rounded">{item.category}</span>
     </div>
   );
 }
