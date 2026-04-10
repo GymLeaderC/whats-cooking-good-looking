@@ -9,7 +9,7 @@
  */
 
 import { useState } from "react";
-import InventoryItem from "@/app/components/inventory/InventoryItem";
+import InventoryItem from "@/components/inventory/InventoryItem";
 
 export default function CategorySection({ category, items }) {
   const [isExpanded, setIsExpanded] = useState(true);

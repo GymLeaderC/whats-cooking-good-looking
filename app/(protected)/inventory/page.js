@@ -8,8 +8,8 @@
  */
 
 import { useState } from "react";
-import InventoryTabs from "@/app/components/inventory/InventoryTabs";
-import InventoryList from "@/app/components/inventory/InventoryList";
+import InventoryTabs from "@/components/inventory/InventoryTabs";
+import InventoryList from "@/components/inventory/InventoryList";
 
 // ^ STUB DATA - replace with Firestore query later
 const MOCK_ITEMS = [

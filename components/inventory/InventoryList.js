@@ -9,7 +9,7 @@
  */
 
 import { useState } from "react";
-import CategorySection from "@/app/components/inventory/CategorySection";
+import CategorySection from "@/components/inventory/CategorySection";
 
 export default function InventoryList({ items }) {
   const groupedByCategory = items.reduce((groups, item) => {
