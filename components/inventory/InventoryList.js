@@ -8,8 +8,7 @@
  * @version 1.0.1
  */
 
-import { useState } from "react";
-import CategorySection from "@/components/inventory/InventoryCategorySection";
+import InventoryCategorySection from "@/components/inventory/InventoryCategorySection";
 
 export default function InventoryList({ items }) {
   const groupedByCategory = items.reduce((groups, item) => {
@@ -23,7 +22,7 @@ export default function InventoryList({ items }) {
   return (
     <div className="space-y-4">
       {Object.entries(groupedByCategory).map(([category, categoryItems]) => (
-        <CategorySection key={category} category={category} items={categoryItems} />
+        <InventoryCategorySection key={category} category={category} items={categoryItems} />
       ))}
     </div>
   );
