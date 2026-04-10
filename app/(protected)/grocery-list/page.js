@@ -1,11 +1,86 @@
+"use client";
+
 /**
- * @fileoverview A page which renders when a user navigates to the Grocery List Page
+ * @fileoverview Grocery List page — displays grocery items grouped by aisle.
+ * Users can check off items (triggering an inventory add flow), manually add
+ * items, and remove items from the list.
  * @author Joshua Couto
- * @version 1.0.0
+ * @version 1.0.1
  */
 
-export default function GroceryListPage() {
-  return (
+import { useState } from "react";
+import GroceryList from "@/components/grocery/GroceryList";
+import GroceryAddButton from "@/components/grocery/GroceryAddButton";
+import GroceryAddModal from "@/components/grocery/GroceryAddModal";
 
+// ^ STUB DATA - replace with Firestore query later
+const MOCK_ITEMS = [
+  { id: "1", name: "Chicken Breast", quantity: 2, unit: "lbs", category: "Meat", checked: false},
+  { id: "2", name: "Broccoli", quantity: 1, unit: "head", category: "Produce", checked: false },
+  { id: "3", name: "Milk", quantity: 1, unit: "gallon", category: "Dairy", checked: false },
+  { id: "4", name: "Butter", quantity: 1, unit: "stick", category: "Dairy", checked: false },
+  { id: "5", name: "Pasta", quantity: 1, unit: "box", category: "Pantry", checked: false },
+  { id: "6", name: "Frozen Peas", quantity: 1, unit: "bag", category: "Produce", checked: false },
+  { id: "7", name: "Ground Beef", quantity: 1.5, unit: "lbs", category: "Meat", checked: false },
+  { id: "8", name: "Cheddar Cheese", quantity: 0.5, unit: "lb", category: "Dairy", checked: false }
+]
+
+export default function GroceryListPage() {
+  const [items, setItems] = useState(MOCK_ITEMS);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pendingItem, setPendingItem] = useState(null);
+
+  // Called when user checks off an item.
+  // Stores item as pending and opens location modal
+  function handleCheck(item) {
+    setPendingItem(item);
+    // TODO: open storage location modal
+  }
+
+  // Called when user picks a storage location for a checked item
+  function handleConfirmLocation(storageLocation) {
+    // TODO: add pendingItem to inventory with storageLocation
+    setPendingItem(null);
+  }
+
+  // Called when user clicks Remove. Filters item out of the list
+  function handleRemove(itemId) {
+    setItems((prev) => prev.filter((item) => item.id !== itemId));
+  }
+
+  // Called when user confirms a new item in the add modal
+  function handleAddItem(formData) {
+    const newItem = {
+      id: Date.now().toString(),
+      name: formData.name,
+      quantity: formData.quantity,
+      category: formData.category,
+      checked: false,
+    };
+    setItems((prev) => [...prev, newItem]);
+    setIsModalOpen(false);
+  }
+
+  return (
+    <div className="p-4">
+      <h1 className="text-3xl font-bold mb-6">Grocery List</h1>
+
+      {/* Grouped grocery items */}
+      <GroceryList
+        items={items}
+        onCheck={handleCheck}
+        onRemove={handleRemove}
+      />
+
+      {/* Floating add button */}
+      <GroceryAddButton onOpenModal={() => setIsModalOpen(true)} />
+
+      {/* Add item modal */}
+      <GroceryAddModal
+        isOpen={isModalOpen}
+        onConfirm={handleAddItem}
+        onCancel={() => setIsModalOpen(false)}
+      />
+    </div>
   );
 }

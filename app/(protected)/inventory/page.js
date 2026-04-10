@@ -20,7 +20,7 @@ const MOCK_ITEMS = [
   { id: "5", name: "Pasta", quantity: 1, unit: "box", category: "Pantry", storageLocation: "pantry" },
   { id: "6", name: "Frozen Peas", quantity: 1, unit: "bag", category: "Produce", storageLocation: "freezer" },
   { id: "7", name: "Ground Beef", quantity: 1.5, unit: "lbs", category: "Meat", storageLocation: "freezer" },
-  { id: "8", name: "Cheddar Cheese", quantity: 0.5, unit: "lb", category: "Dairy", storageLocation: "fridge" },
+  { id: "8", name: "Cheddar Cheese", quantity: 0.5, unit: "lb", category: "Dairy", storageLocation: "fridge" }
 ];
 
 const TABS = [ 
