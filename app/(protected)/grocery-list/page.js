@@ -12,6 +12,7 @@ import { useState } from "react";
 import GroceryList from "@/components/grocery/GroceryList";
 import GroceryAddButton from "@/components/grocery/GroceryAddButton";
 import GroceryAddModal from "@/components/grocery/GroceryAddModal";
+import GroceryLocationModal from "@/components/grocery/GroceryLocationModal";
 
 // ^ STUB DATA - replace with Firestore query later
 const MOCK_ITEMS = [
@@ -34,12 +35,18 @@ export default function GroceryListPage() {
   // Stores item as pending and opens location modal
   function handleCheck(item) {
     setPendingItem(item);
-    // TODO: open storage location modal
   }
 
   // Called when user picks a storage location for a checked item
   function handleConfirmLocation(storageLocation) {
-    // TODO: add pendingItem to inventory with storageLocation
+    // TODO: Write pendingItem to Firestore inventory with storageLocation
+    // Marks item as pending while user is selecting a storage location
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === pendingItem.id ? {...item, checked: true} : item
+      )
+    );
+    // Clear the pending item (also closes the modal)
     setPendingItem(null);
   }
 
@@ -80,6 +87,13 @@ export default function GroceryListPage() {
         isOpen={isModalOpen}
         onConfirm={handleAddItem}
         onCancel={() => setIsModalOpen(false)}
+      />
+
+      {/* Storage Location Modal */}
+      <GroceryLocationModal
+        isOpen={pendingItem !== null}
+        onLocationSelect={handleConfirmLocation}
+        onCancel={() => setPendingItem(null)}
       />
     </div>
   );
