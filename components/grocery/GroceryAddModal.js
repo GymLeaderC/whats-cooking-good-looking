@@ -8,6 +8,77 @@
  * @version 1.0.0
  */
 
+import { useState } from "react";
+
 export default function GroceryAddModal({ isOpen, onConfirm, onCancel }) {
-  return null;
+  const [formData, setFormData] = useState({
+    name: "",
+    quantity: "",
+    category: "",
+  });
+
+  if (!isOpen) return null;
+  
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value}));
+  }
+
+  function handleConfirm() {
+    onConfirm(formData);
+    setFormData({ name: "", quantity: "", category: "" });
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+
+      {/* Modal box */}
+      <div className="bg-white rounded-lg p-6 w-80 space-y-4">
+        <h2 className="text-lg font-semibold">Add Grocery Item</h2>
+
+        {/* Item Name Input */}
+        <input
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Item Name"
+          className="w-full border rounded p-2"
+        />
+
+        {/* Quantity Input */}
+        <input
+          name="quantity"
+          value={formData.quantity}
+          onChange={handleChange}
+          placeholder="Quantity"
+          className="w-full border rounded p-2"
+        />
+
+        {/* Category Input */}
+        <input
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+          placeholder="Category"
+          className="w-full border rounded p-2"
+        />
+
+        {/* Confirm and Cancel Buttons */}
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={onCancel}
+            className="px-4 py-2 text-gray-600 hover:text-gray-900"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleConfirm}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Add item
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
