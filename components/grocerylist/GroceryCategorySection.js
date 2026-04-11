@@ -9,7 +9,7 @@
  */
 
 import { useState } from "react";
-import GroceryItem from "@/components/grocery/GroceryItem";
+import GroceryItem from "@/components/grocerylist/GroceryItem";
 
 export default function GroceryCategorySection({ category, items, onCheck, onRemove }) {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -30,11 +30,11 @@ export default function GroceryCategorySection({ category, items, onCheck, onRem
       {isExpanded && (
         <div className="mt-4 space-y-2">
           {items.map((item) => (
-            <GroceryItem 
-              key={item.id} 
+            <GroceryItem
+              key={item.id}
               item={item}
               onCheck={onCheck}
-              onRemove={onRemove} 
+              onRemove={onRemove}
             />
           ))}
         </div>

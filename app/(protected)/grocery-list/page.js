@@ -9,14 +9,14 @@
  */
 
 import { useState } from "react";
-import GroceryList from "@/components/grocery/GroceryList";
-import GroceryAddButton from "@/components/grocery/GroceryAddButton";
-import GroceryAddModal from "@/components/grocery/GroceryAddModal";
-import GroceryLocationModal from "@/components/grocery/GroceryLocationModal";
+import GroceryList from "@/components/grocerylist/GroceryList";
+import GroceryAddButton from "@/components/grocerylist/GroceryAddButton";
+import GroceryAddModal from "@/components/grocerylist/GroceryAddModal";
+import GroceryLocationModal from "@/components/grocerylist/GroceryLocationModal";
 
 // ^ STUB DATA - replace with Firestore query later
 const MOCK_ITEMS = [
-  { id: "1", name: "Chicken Breast", quantity: 2, unit: "lbs", category: "Meat", checked: false},
+  { id: "1", name: "Chicken Breast", quantity: 2, unit: "lbs", category: "Meat", checked: false },
   { id: "2", name: "Broccoli", quantity: 1, unit: "head", category: "Produce", checked: false },
   { id: "3", name: "Milk", quantity: 1, unit: "gallon", category: "Dairy", checked: false },
   { id: "4", name: "Butter", quantity: 1, unit: "stick", category: "Dairy", checked: false },
@@ -43,7 +43,7 @@ export default function GroceryListPage() {
     // Marks item as pending while user is selecting a storage location
     setItems((prev) =>
       prev.map((item) =>
-        item.id === pendingItem.id ? {...item, checked: true} : item
+        item.id === pendingItem.id ? { ...item, checked: true } : item
       )
     );
     // Clear the pending item (also closes the modal)

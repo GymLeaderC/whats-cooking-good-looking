@@ -8,7 +8,7 @@
  * @version 1.0.0
  */
 
-import GroceryCategorySection from "@/components/grocery/GroceryCategorySection";
+import GroceryCategorySection from "@/components/grocerylist/GroceryCategorySection";
 
 export default function GroceryList({ items, onCheck, onRemove }) {
   const groupedByCategory = items.reduce((groups, item) => {
@@ -22,11 +22,11 @@ export default function GroceryList({ items, onCheck, onRemove }) {
   return (
     <div className="space-y-4">
       {Object.entries(groupedByCategory).map(([category, categoryItems]) => (
-        <GroceryCategorySection 
-          key={category} 
-          category={category} 
+        <GroceryCategorySection
+          key={category}
+          category={category}
           items={categoryItems}
-          onCheck={onCheck} 
+          onCheck={onCheck}
           onRemove={onRemove}
         />
       ))}
