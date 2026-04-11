@@ -17,7 +17,7 @@ export default function MealDayCard({ date, meal, onAddMeal }) {
       <div>
         {meal ? 
           <MealCard meal={meal} /> : 
-          <MealAddButton onAddMeal={onAddMeal} />
+          <MealAddButton onClick={onAddMeal} />
         }
       </div>
     </div>
