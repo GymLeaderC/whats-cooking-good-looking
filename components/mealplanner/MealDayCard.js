@@ -1,5 +1,3 @@
-"use client";
-
 /**
  * @fileoverview A card which renders a planned meal for any given day. It 
  * accepts three props; date, meal, and onAddMeal. This card will is the parent
