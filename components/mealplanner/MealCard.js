@@ -10,7 +10,7 @@ export default function MealCard({ meal, onRemove }) {
   return (
     <div>
       {meal.name}
-      {meal.cookTime}
+      {meal.link}
       <button onClick={onRemove}>Remove</button>
     </div>
   )

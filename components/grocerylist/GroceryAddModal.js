@@ -32,7 +32,7 @@ export default function GroceryAddModal({ isOpen, onConfirm, onCancel }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
 
-      {/* Modal box */}
+      {/* Modal Box */}
       <div className="bg-white rounded-lg p-6 w-80 space-y-4">
         <h2 className="text-lg font-semibold">Add Grocery Item</h2>
 
