@@ -12,10 +12,8 @@
 
 import { useState } from "react";
 
-export default function MealAddModal({ isOpen, selectedDate, recipes, onConfirm, onCancel }) {
+export default function MealAddModal({ selectedDate, recipes, onConfirm, onCancel }) {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-
-  if (!isOpen) return null;
 
   function handleConfirm() {
     onConfirm(selectedRecipe);
@@ -29,7 +27,7 @@ export default function MealAddModal({ isOpen, selectedDate, recipes, onConfirm,
       <div className="bg-white rounded-lg p-6 w-80 space-y-4">
         <h2 className="text-lg font-semibold"
         >
-          Add Meal for {selectedDate.toLocaleDateString("en-CA", { month: "short", day: "numeric"})}
+          Add Meal for {new Date(selectedDate + "T00:00:00").toLocaleDateString("en-CA", { month: "short", day: "numeric"})}
         </h2>
 
         {recipes.map((recipe) => (
