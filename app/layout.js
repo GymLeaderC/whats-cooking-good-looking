@@ -7,6 +7,7 @@
  */
 
 import { AuthProvider } from "@/context/AuthContext";
+import { HouseholdProvider } from "@/context/HouseholdContext";
 import "./globals.css";
 
 export const metadata = {
@@ -19,7 +20,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AuthProvider>
-          {children}
+          <HouseholdProvider>
+            {children}
+          </HouseholdProvider>
         </AuthProvider>
       </body>
     </html>

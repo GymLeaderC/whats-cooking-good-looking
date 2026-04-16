@@ -13,7 +13,7 @@ export default function NavbarLayout({ children }) {
   return (
     <>
       <Navbar/>
-      <main>{children}</main>
+        <main>{children}</main>
     </>
   );
 }
