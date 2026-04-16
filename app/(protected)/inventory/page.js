@@ -39,14 +39,16 @@ export default function InventoryPage() {
     : MOCK_ITEMS.filter((item) => item.storageLocation === activeTab);
 
   return (
-    <div className="p-4">
-      <h1 className="text-3xl font-bold mb-6">Inventory</h1>
+    <div className="min-h-screen p-6" style={{ backgroundColor: "#F5ECD9" }}>
+      <div className="max-w-2xl mx-auto">
+      <h1 className="text-2xl font-bold mb-6" style={{ color: "#2F4A3A" }}>Inventory</h1>
 
       {/* Tab Navigation */}
       <InventoryTabs tabs={TABS} activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Items list grouped by category */}
       <InventoryList items={filteredItems} />
+      </div>
     </div>
   );
 }

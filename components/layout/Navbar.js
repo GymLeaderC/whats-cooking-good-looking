@@ -33,28 +33,45 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 h-14 bg-white border-b border-gray-200">
-        <span>What&apos;s Cooking</span>
-        <button onClick={() => setDrawerOpen(true)}>☰</button>
+      <header
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 h-14"
+        style={{ backgroundColor: "#2F4A3A" }}
+      >
+        <span className="font-bold" style={{ color: "#EEF1EA" }}>What&apos;s Cooking, Good Looking?</span>
+        <button onClick={() => setDrawerOpen(true)} style={{ color: "#EEF1EA" }}>☰</button>
       </header>
 
       {drawerOpen && (
         <>
-          <div onClick={() => setDrawerOpen(false)} className="fixed inset-0 z-50 bg-black/40" />
-          <div className="fixed top-0 right-0 z-50 h-full w-64 bg-white flex flex-col p-4">
+          <div onClick={() => setDrawerOpen(false)} className="fixed inset-0 z-50 bg-black bg-opacity-40" />
+          <div
+            className="fixed top-0 right-0 z-50 h-full w-64 flex flex-col p-4"
+            style={{ backgroundColor: "#2F4A3A" }}
+          >
             <nav className="flex flex-col gap-2">
               {NAV_LINKS.map((link) => (
-                <Link 
-                  key={link.href} 
+                <Link
+                  key={link.href}
                   href={link.href}
                   onClick={() => setDrawerOpen(false)}
-                  className={pathname === link.href ? "font-bold" : "font-normal"}
+                  className={`px-2 py-1 rounded text-sm transition hover:opacity-90 ${
+                    pathname === link.href ? "font-semibold" : "font-normal"
+                  }`}
+                  style={{
+                    color: pathname === link.href ? "#D7B98E" : "#9FB3A6",
+                  }}
                 >
                   {link.label}
                 </Link>
               ))}
             </nav>
-            <button onClick={handleSignOut} className="mt-auto">Sign Out</button>
+            <button
+              onClick={handleSignOut}
+              className="mt-auto px-4 py-2 text-sm rounded hover:opacity-80 transition"
+              style={{ backgroundColor: "#9FB3A6", color: "#2F4A3A" }}
+            >
+              Sign Out
+            </button>
           </div>
         </>
       )}

@@ -30,11 +30,11 @@ export default function GroceryAddModal({ isOpen, onConfirm, onCancel }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 
       {/* Modal Box */}
-      <div className="bg-white rounded-lg p-6 w-80 space-y-4">
-        <h2 className="text-lg font-semibold">Add Grocery Item</h2>
+      <div className="rounded-lg p-6 w-80 space-y-4" style={{ backgroundColor: "#EEF1EA" }}>
+        <h2 className="text-lg font-semibold" style={{ color: "#2F4A3A" }}>Add Grocery Item</h2>
 
         {/* Item Name Input */}
         <input
@@ -42,7 +42,8 @@ export default function GroceryAddModal({ isOpen, onConfirm, onCancel }) {
           value={formData.name}
           onChange={handleChange}
           placeholder="Item Name"
-          className="w-full border rounded p-2"
+          className="w-full border rounded p-2 text-sm focus:outline-none focus:ring-2"
+          style={{ borderColor: "#9FB3A6", backgroundColor: "#F5ECD9", color: "#2F4A3A" }}
         />
 
         {/* Quantity Input */}
@@ -51,7 +52,8 @@ export default function GroceryAddModal({ isOpen, onConfirm, onCancel }) {
           value={formData.quantity}
           onChange={handleChange}
           placeholder="Quantity"
-          className="w-full border rounded p-2"
+          className="w-full border rounded p-2 text-sm focus:outline-none focus:ring-2"
+          style={{ borderColor: "#9FB3A6", backgroundColor: "#F5ECD9", color: "#2F4A3A" }}
         />
 
         {/* Category Input */}
@@ -59,7 +61,8 @@ export default function GroceryAddModal({ isOpen, onConfirm, onCancel }) {
           name="category"
           value={formData.category}
           onChange={handleChange}
-          className="w-full border rounded p-2"
+          className="w-full border rounded p-2 text-sm focus:outline-none focus:ring-2"
+          style={{ borderColor: "#9FB3A6", backgroundColor: "#F5ECD9", color: "#2F4A3A" }}
         >
           <option value="">Select a category</option>
           <option value="Produce">Produce</option>
@@ -73,22 +76,23 @@ export default function GroceryAddModal({ isOpen, onConfirm, onCancel }) {
           <option value="Beverages">Beverages</option>
           <option value="Household">Household</option>
           <option value="Other">Other</option>
-
         </select>
 
         {/* Confirm and Cancel Buttons */}
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-end gap-2 pt-2">
           <button
             onClick={onCancel}
-            className="px-4 py-2 text-gray-600 hover:text-gray-900"
+            className="px-4 py-2 text-sm rounded hover:opacity-80 transition"
+            style={{ backgroundColor: "#9FB3A6", color: "#2F4A3A" }}
           >
             Cancel
           </button>
           <button
             onClick={handleConfirm}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-4 py-2 text-sm rounded hover:opacity-80 transition"
+            style={{ backgroundColor: "#2F4A3A", color: "#EEF1EA" }}
           >
-            Add item
+            Add Item
           </button>
         </div>
       </div>

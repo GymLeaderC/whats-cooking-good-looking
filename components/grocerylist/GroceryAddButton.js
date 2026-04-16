@@ -9,9 +9,11 @@
 
 export default function GroceryAddButton({ onOpenModal }) {
   return (
-    <button className="fixed bottom-6 right-6 w-14 h-14 rounded-full 
-        bg-blue-500 text-white text-2xl shadow-lg hover:bg-blue-600"
-      onClick={onOpenModal}>
+    <button
+      onClick={onOpenModal}
+      className="fixed bottom-6 right-6 w-14 h-14 rounded-full text-2xl font-medium hover:opacity-80 transition"
+      style={{ backgroundColor: "#D7B98E", color: "#2F4A3A" }}
+    >
       +
     </button>
   );

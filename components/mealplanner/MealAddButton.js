@@ -7,11 +7,11 @@
  * @version 1.0.0
  */
 
-export default function MealAddButton({ onAddMeal }) {
+export default function MealAddButton({ onClick }) {
   return (
     <div>
       <button
-        onClick={onAddMeal}>
+        onClick={onClick}>
           Add Meal
       </button>
     </div>

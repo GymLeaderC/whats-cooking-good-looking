@@ -13,34 +13,38 @@ export default function GroceryLocationModal({ isOpen, onLocationSelect, onCance
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 
       {/* Modal box */}
-      <div className="bg-white rounded-lg p-6 w-80 space-y-4">
-        <h2 className="text-lg font-semibold">Select Storage Location</h2>
+      <div className="rounded-lg p-6 w-80 space-y-4" style={{ backgroundColor: "#EEF1EA" }}>
+        <h2 className="text-lg font-semibold" style={{ color: "#2F4A3A" }}>Select Storage Location</h2>
         {/* Location buttons - 2x2 grid */}
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={() => onLocationSelect("fridge")}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-4 py-2 text-sm rounded hover:opacity-80 transition"
+            style={{ backgroundColor: "#2F4A3A", color: "#EEF1EA" }}
           >
             Fridge
           </button>
           <button
             onClick={() => onLocationSelect("freezer")}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-4 py-2 text-sm rounded hover:opacity-80 transition"
+            style={{ backgroundColor: "#2F4A3A", color: "#EEF1EA" }}
           >
             Freezer
           </button>
           <button
             onClick={() => onLocationSelect("pantry")}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-4 py-2 text-sm rounded hover:opacity-80 transition"
+            style={{ backgroundColor: "#2F4A3A", color: "#EEF1EA" }}
           >
             Pantry
           </button>
           <button
             onClick={onCancel}
-            className="px-4 py-2 text-gray-600 hover:text-gray-900"
+            className="px-4 py-2 text-sm rounded hover:opacity-80 transition"
+            style={{ backgroundColor: "#9FB3A6", color: "#2F4A3A" }}
           >
             Cancel
           </button>

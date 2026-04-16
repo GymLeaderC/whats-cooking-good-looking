@@ -13,7 +13,6 @@ import MealWeekNavigator from "@/components/mealplanner/MealWeekNavigator";
 import MealDayCard from "@/components/mealplanner/MealDayCard";
 import MealAddModal from "@/components/mealplanner/MealAddModal";
 
-// Returns the Monday of the week containing the given date
 function getMonday(date) {
   const d = new Date(date);
   const day = d.getDay();
@@ -23,7 +22,6 @@ function getMonday(date) {
   return d;
 }
 
-// Returns array of 7 date strings starting form weekStart
 function getWeekDates(weekStart) {
   return Array.from({ length: 7 }, (_, i) => {
     const d = new Date(weekStart);
@@ -57,10 +55,10 @@ export default function MealPlannerPage() {
     setIsModalOpen(true);
   }
 
-  function handleAddMeal(recipeName) {
+  function handleAddMeal(recipe) {
     setMealPlan(prev => ({
       ...prev,
-      [selectedDate]: { recipeName }
+      [selectedDate]: { recipeName: recipe.name }
     }));
     setIsModalOpen(false);
     setSelectedDate(null);
@@ -75,46 +73,42 @@ export default function MealPlannerPage() {
   }
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Meal Planner</h1>
+    <div className="min-h-screen p-6" style={{ backgroundColor: "#F5ECD9" }}>
+      <div className="max-w-2xl mx-auto">
 
-      <MealWeekNavigator
-        weekStart={weekStart}
-        onPrev={handlePrevWeek}
-        onNext={handleNextWeek}
-      />
+        <h1 className="text-2xl font-bold mb-6" style={{ color: "#2F4A3A" }}>
+          Meal Planner
+        </h1>
 
-      <div className="flex flex-col gap-3 mt-4">
-        {weekDates.map(date => (
-          <MealDayCard
-            key={date}
-            date={date}
-            meal={mealPlan[date] || null}
-            onAddMeal={() => handleOpenModal(date)}
-            onRemove={() => handleRemoveMeal(date)}
-          />
-        ))}
-      </div>
-
-      {/* TODO: Replace mock recipes with Firestore data (below) once wired */}
-      {isModalOpen && (
-        <MealAddModal
-          selectedDate={selectedDate}
-          recipes={[{ id: "1", name: "Pasta" }, { id: "2", name: "Butter Chicken" }]}
-          onConfirm={handleAddMeal}
-          onCancel={() => setIsModalOpen(false)}
+        <MealWeekNavigator
+          weekStart={weekStart}
+          onPrev={handlePrevWeek}
+          onNext={handleNextWeek}
         />
-      )}
 
-      {/* 
+        <div className="flex flex-col gap-3 mt-4">
+          {weekDates.map(date => (
+            <MealDayCard
+              key={date}
+              date={date}
+              meal={mealPlan[date] || null}
+              onAddMeal={() => handleOpenModal(date)}
+              onRemove={() => handleRemoveMeal(date)}
+            />
+          ))}
+        </div>
+
+        {/* TODO: Replace mock recipes with Firestore data once wired */}
         {isModalOpen && (
           <MealAddModal
-          date={selectedDate}
-          onConfirm={handleAddMeal}
-          onCancel={() => setIsModalOpen(false)}
+            selectedDate={selectedDate}
+            recipes={[{ id: "1", name: "Pasta" }, { id: "2", name: "Butter Chicken" }]}
+            onConfirm={handleAddMeal}
+            onCancel={() => setIsModalOpen(false)}
           />
         )}
-      */}
+
+      </div>
     </div>
   );
 }

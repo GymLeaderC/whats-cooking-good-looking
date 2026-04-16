@@ -69,32 +69,34 @@ export default function GroceryListPage() {
   }
 
   return (
-    <div className="p-4">
-      <h1 className="text-3xl font-bold mb-6">Grocery List</h1>
+    <div className="min-h-screen p-6" style={{ backgroundColor: "#F5ECD9" }}>
+      <div className="max-w-2xl mx-auto">
+        <h1 className="text-2xl font-bold mb-6" style={{ color: "#2F4A3A" }}>Grocery List</h1>
 
-      {/* Grouped grocery items */}
-      <GroceryList
-        items={items}
-        onCheck={handleCheck}
-        onRemove={handleRemove}
-      />
+        {/* Grouped grocery items */}
+        <GroceryList
+          items={items}
+          onCheck={handleCheck}
+          onRemove={handleRemove}
+        />
 
-      {/* Floating add button */}
-      <GroceryAddButton onOpenModal={() => setIsModalOpen(true)} />
+        {/* Floating add button */}
+        <GroceryAddButton onOpenModal={() => setIsModalOpen(true)} />
 
-      {/* Add item modal */}
-      <GroceryAddModal
-        isOpen={isModalOpen}
-        onConfirm={handleAddItem}
-        onCancel={() => setIsModalOpen(false)}
-      />
+        {/* Add item modal */}
+        <GroceryAddModal
+          isOpen={isModalOpen}
+          onConfirm={handleAddItem}
+          onCancel={() => setIsModalOpen(false)}
+        />
 
-      {/* Storage Location Modal */}
-      <GroceryLocationModal
-        isOpen={pendingItem !== null}
-        onLocationSelect={handleConfirmLocation}
-        onCancel={() => setPendingItem(null)}
-      />
+        {/* Storage Location Modal */}
+        <GroceryLocationModal
+          isOpen={pendingItem !== null}
+          onLocationSelect={handleConfirmLocation}
+          onCancel={() => setPendingItem(null)}
+        />
+      </div>
     </div>
   );
 }

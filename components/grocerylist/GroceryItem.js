@@ -10,8 +10,10 @@
 
 export default function GroceryItem({ item, onCheck, onRemove }) {
   return (
-    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
-      
+    <div
+      className="flex items-center justify-between px-4 py-3 rounded-lg border"
+      style={{ backgroundColor: "#EEF1EA", borderColor: "#9FB3A6" }}
+    >
       {/* Checkbox + item details */}
       <div className="flex items-center gap-3">
         <input
@@ -21,21 +23,26 @@ export default function GroceryItem({ item, onCheck, onRemove }) {
           className="w-4 h-4"
         />
         <div>
-          <p className="font-medium">{item.name}</p>
-          <p className="text-sm text-gray-600">
+          <p
+            className={`text-sm font-medium ${item.checked ? "line-through" : ""}`}
+            style={{ color: item.checked ? "#9FB3A6" : "#2F4A3A" }}
+          >
+            {item.name}
+          </p>
+          <p className="text-sm" style={{ color: item.checked ? "#9FB3A6" : "#5F7C68" }}>
             {item.quantity} {item.unit}
           </p>
-        </div>  
+        </div>
       </div>
-      
+
       {/* Remove button */}
       <button
         onClick={() => onRemove(item.id)}
-        className="text-sm text-red-500 hover:text-red-700"
+        className="text-sm hover:opacity-70 transition"
+        style={{ color: "#5F7C68" }}
       >
         Remove
       </button>
-
     </div>
   );
 }

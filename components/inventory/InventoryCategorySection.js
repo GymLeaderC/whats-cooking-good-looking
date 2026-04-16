@@ -15,20 +15,20 @@ export default function InventoryCategorySection({ category, items }) {
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
-    <div className="border rounded-lg p-4">
-
+    <div className="mb-4">
       {/* Category header - clickable to toggle collapse */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center justify-between w-full font-semibold text-lg"
+        className="flex items-center justify-between w-full text-sm font-semibold uppercase tracking-wide mb-2"
+        style={{ color: "#5F7C68" }}
       >
         <span>{category}</span>
-        <span className="text-gray-500">{isExpanded ? "▼" : "▶"}</span>
+        <span>{isExpanded ? "▼" : "▶"}</span>
       </button>
 
       {/* Items - rendered only if expanded */}
       {isExpanded && (
-        <div className="mt-4 space-y-2">
+        <div className="flex flex-col gap-2">
           {items.map((item) => (
             <InventoryItem key={item.id} item={item} />
           ))}
