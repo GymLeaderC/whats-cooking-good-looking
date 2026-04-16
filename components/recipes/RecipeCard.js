@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * @fileoverview Displays a single recipe as a card with title and category.
  * @author Joshua Couto

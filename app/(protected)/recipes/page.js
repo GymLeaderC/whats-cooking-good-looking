@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * @fileoverview Recipes page — lists saved recipes as cards.
  * @author Joshua Couto

@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * @fileoverview Renders a list of RecipeCard components.
  * @author Joshua Couto

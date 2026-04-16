@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * @fileoverview Modal form for adding a new recipe. Accepts title, category,
  * and ingredients as inputs. Calls onConfirm with the new recipe object.
