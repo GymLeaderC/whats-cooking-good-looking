@@ -80,7 +80,7 @@ export default function MealPlannerPage() {
 
   async function handleAddMeal(recipe) {
     try {
-      await setMeal(householdId, selectedDate, { recipeName: recipe.name, recipeId: recipe.id });
+      await setMeal(householdId, selectedDate, { recipeName: recipe.title, recipeId: recipe.id });
       setIsModalOpen(false);
       setSelectedDate(null);
     } catch (error) {

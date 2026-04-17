@@ -39,7 +39,7 @@ export default function MealAddModal({ selectedDate, recipes, onConfirm, onCance
                 color: selectedRecipe?.id === recipe.id ? "#EEF1EA" : "#2F4A3A",
               }}
             >
-              {recipe.name}
+              {recipe.title}
             </div>
           ))}
         </div>
