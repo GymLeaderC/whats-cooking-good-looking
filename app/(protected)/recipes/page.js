@@ -9,12 +9,14 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useHousehold } from "@/context/HouseholdContext";
 import { subscribeToRecipes, addRecipe, deleteRecipe } from "@/services/recipeService";
 import RecipeList from "@/components/recipes/RecipeList";
 import AddRecipeModal from "@/components/recipes/AddRecipeModal";
 
 export default function RecipesPage() {
-  const { householdId } = useAuth();
+  const { user } = useAuth();
+  const { householdId } = useHousehold();
   const [recipes, setRecipes] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

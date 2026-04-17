@@ -10,6 +10,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useHousehold } from "@/context/HouseholdContext";
 import { subscribeToMealPlan, setMeal, removeMeal } from "@/services/mealPlannerService";
 import { subscribeToRecipes } from "@/services/recipeService";
 import MealWeekNavigator from "@/components/mealplanner/MealWeekNavigator";
@@ -34,7 +35,8 @@ function getWeekDates(weekStart) {
 }
 
 export default function MealPlannerPage() {
-  const { householdId } = useAuth();
+  const { user } = useAuth();
+  const { householdId } = useHousehold();
   const [weekStart, setWeekStart] = useState(getMonday(new Date()));
   const [mealPlan, setMealPlan] = useState({});
   const [recipes, setRecipes] = useState([]);

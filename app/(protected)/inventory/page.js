@@ -9,6 +9,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useHousehold } from "@/context/HouseholdContext";
 import { subscribeToInventory, addInventoryItem, deleteInventoryItem } from "@/services/inventoryService";
 import InventoryTabs from "@/components/inventory/InventoryTabs";
 import InventoryList from "@/components/inventory/InventoryList";
@@ -22,7 +23,8 @@ const TABS = [
 ];
 
 export default function InventoryPage() {
-  const { householdId } = useAuth();
+  const { user } = useAuth();
+  const { householdId } = useHousehold();
   const [items, setItems] = useState([]);
   const [activeTab, setActiveTab] = useState("all");
   const [isModalOpen, setIsModalOpen] = useState(false);

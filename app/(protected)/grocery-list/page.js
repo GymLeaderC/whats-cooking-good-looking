@@ -9,6 +9,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useHousehold } from "@/context/HouseholdContext";
 import { subscribeToGroceryList, addGroceryItem, checkGroceryItem, deleteGroceryItem } from "@/services/goceryService";
 import { addInventoryItem } from "@/services/inventoryService";
 import GroceryList from "@/components/grocerylist/GroceryList";
@@ -17,7 +18,8 @@ import GroceryAddModal from "@/components/grocerylist/GroceryAddModal";
 import GroceryLocationModal from "@/components/grocerylist/GroceryLocationModal";
 
 export default function GroceryListPage() {
-  const { householdId } = useAuth();
+  const { user } = useAuth();
+  const { householdId } = useHousehold();
   const [items, setItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingItem, setPendingItem] = useState(null);
