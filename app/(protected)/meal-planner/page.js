@@ -5,10 +5,13 @@
  * assign recipes to specific dates. Week navigation moves forward and backward
  * by 7 days. Meal data is stored as an object keyed by date string.
  * @author Joshua Couto
- * @version 1.0.1
+ * @version 2.0.0
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { subscribeToMealPlan, setMeal, removeMeal } from "@/services/mealPlannerService";
+import { subscribeToRecipes } from "@/services/recipeService";
 import MealWeekNavigator from "@/components/mealplanner/MealWeekNavigator";
 import MealDayCard from "@/components/mealplanner/MealDayCard";
 import MealAddModal from "@/components/mealplanner/MealAddModal";
@@ -31,12 +34,32 @@ function getWeekDates(weekStart) {
 }
 
 export default function MealPlannerPage() {
+  const { householdId } = useAuth();
   const [weekStart, setWeekStart] = useState(getMonday(new Date()));
   const [mealPlan, setMealPlan] = useState({});
+  const [recipes, setRecipes] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
 
   const weekDates = getWeekDates(weekStart);
+
+  // Subscribe to meal plan
+  useEffect(() => {
+    if (!householdId) return;
+    const unsubscribe = subscribeToMealPlan(householdId, (updatedPlan) => {
+      setMealPlan(updatedPlan);
+    });
+    return () => unsubscribe();
+  }, [householdId]);
+
+  // Subscribe to recipes so the modal has real options
+  useEffect(() => {
+    if (!householdId) return;
+    const unsubscribe = subscribeToRecipes(householdId, (updatedRecipes) => {
+      setRecipes(updatedRecipes);
+    });
+    return () => unsubscribe();
+  }, [householdId]);
 
   function handlePrevWeek() {
     const d = new Date(weekStart);
@@ -55,27 +78,27 @@ export default function MealPlannerPage() {
     setIsModalOpen(true);
   }
 
-  function handleAddMeal(recipe) {
-    setMealPlan(prev => ({
-      ...prev,
-      [selectedDate]: { recipeName: recipe.name }
-    }));
-    setIsModalOpen(false);
-    setSelectedDate(null);
+  async function handleAddMeal(recipe) {
+    try {
+      await setMeal(householdId, selectedDate, { recipeName: recipe.name, recipeId: recipe.id });
+      setIsModalOpen(false);
+      setSelectedDate(null);
+    } catch (error) {
+      console.error("Failed to set meal:", error);
+    }
   }
 
-  function handleRemoveMeal(date) {
-    setMealPlan(prev => {
-      const updated = { ...prev };
-      delete updated[date];
-      return updated;
-    });
+  async function handleRemoveMeal(date) {
+    try {
+      await removeMeal(householdId, date);
+    } catch (error) {
+      console.error("Failed to remove meal:", error);
+    }
   }
 
-  return (
+ return (
     <div className="min-h-screen p-6" style={{ backgroundColor: "#F5ECD9" }}>
       <div className="max-w-2xl mx-auto">
-
         <h1 className="text-2xl font-bold mb-6" style={{ color: "#2F4A3A" }}>
           Meal Planner
         </h1>
@@ -98,16 +121,14 @@ export default function MealPlannerPage() {
           ))}
         </div>
 
-        {/* TODO: Replace mock recipes with Firestore data once wired */}
         {isModalOpen && (
           <MealAddModal
             selectedDate={selectedDate}
-            recipes={[{ id: "1", name: "Pasta" }, { id: "2", name: "Butter Chicken" }]}
+            recipes={recipes}
             onConfirm={handleAddMeal}
             onCancel={() => setIsModalOpen(false)}
           />
         )}
-
       </div>
     </div>
   );
