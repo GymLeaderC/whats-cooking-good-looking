@@ -1,26 +1,46 @@
 "use client"
 
 /**
- * @fileoverview Recipes page — lists saved recipes as cards.
+ * @fileoverview Recipes page — lists saved recipes as cardswith real-time
+ * Firestore sync. Supports adding and deleting recipes.
  * @author Joshua Couto
- * @version 1.1.0
+ * @version 2.0.0
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { subscribeToRecipes, addRecipe, deleteRecipe } from "@/services/recipeService";
 import RecipeList from "@/components/recipes/RecipeList";
 import AddRecipeModal from "@/components/recipes/AddRecipeModal";
 
 export default function RecipesPage() {
+  const { householdId } = useAuth();
   const [recipes, setRecipes] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  function handleAddRecipe(newRecipe) {
-    setRecipes(prev => [...prev, { ...newRecipe, id: Date.now().toString() }]);
-    setIsModalOpen(false);
+  useEffect(() => {
+    if (!householdId) return;
+    const unsubscribe = subscribeToRecipes(householdId, (updatedRecipes) => {
+      setRecipes(updatedRecipes);
+    });
+    return () => unsubscribe();
+  }, [householdId]);
+
+  async function handleAddRecipe(newRecipe) {
+    try {
+      await addRecipe(householdId, newRecipe);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Failed to add recipe:", error);
+    }
   }
 
-  function handleDeleteRecipe(id) {
-    setRecipes(prev => prev.filter(recipe => recipe.id !== id));
+  async function handleDeleteRecipe(id) {
+    try {
+      await deleteRecipe(householdId, id);
+    } catch (error) {
+      console.error("Failed to delete recipe:", error);
+    }
   }
 
   return (
