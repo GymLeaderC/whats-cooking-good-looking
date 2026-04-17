@@ -7,21 +7,12 @@
  * @version 1.0.2
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { subscribeToInventory, addInventoryItem, deleteInventoryItem } from "@/services/inventoryService";
 import InventoryTabs from "@/components/inventory/InventoryTabs";
 import InventoryList from "@/components/inventory/InventoryList";
-
-// ^ STUB DATA - replace with Firestore query later
-const MOCK_ITEMS = [
-  { id: "1", name: "Chicken Breast", quantity: 2, unit: "lbs", category: "Meat", storageLocation: "freezer" },
-  { id: "2", name: "Broccoli", quantity: 1, unit: "head", category: "Produce", storageLocation: "fridge" },
-  { id: "3", name: "Milk", quantity: 1, unit: "gallon", category: "Dairy", storageLocation: "fridge" },
-  { id: "4", name: "Butter", quantity: 1, unit: "stick", category: "Dairy", storageLocation: "fridge" },
-  { id: "5", name: "Pasta", quantity: 1, unit: "box", category: "Pantry", storageLocation: "pantry" },
-  { id: "6", name: "Frozen Peas", quantity: 1, unit: "bag", category: "Produce", storageLocation: "freezer" },
-  { id: "7", name: "Ground Beef", quantity: 1.5, unit: "lbs", category: "Meat", storageLocation: "freezer" },
-  { id: "8", name: "Cheddar Cheese", quantity: 0.5, unit: "lb", category: "Dairy", storageLocation: "fridge" }
-];
+import InventoryAddModal from "@/components/inventory/InventoryAddModal";
 
 const TABS = [ 
   { id: "all", label: "All" },
@@ -31,23 +22,65 @@ const TABS = [
 ];
 
 export default function InventoryPage() {
+  const { householdId } = useAuth();
+  const [items, setItems] = useState([]);
   const [activeTab, setActiveTab] = useState("all");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Subscribe to real-time inventory updates
+  useEffect(() => {
+    if (!householdId) return;
+    const unsubscribe = subscribeToInventory(householdId, (updatedItems) => {
+      setItems(updatedItems);
+    });
+    return () => unsubscribe();
+  }, [householdId]);
+
+  async function handleAddItem(newItem) {
+    try {
+      await addInventoryItem(householdId, newItem);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Failed to add item:", error);
+    }
+  }
+
+  async function handleDeleteItem(itemId) {
+    try {
+      await deleteInventoryItem(householdId, itemId);
+    } catch (error) {
+      console.error("Failed to delete item:", error);
+    }
+  }
 
   const filteredItems = 
     activeTab === "all"
-    ? MOCK_ITEMS
-    : MOCK_ITEMS.filter((item) => item.storageLocation === activeTab);
+    ? items
+    : items.filter((item) => item.storageLocation === activeTab);
 
-  return (
+   return (
     <div className="min-h-screen p-6" style={{ backgroundColor: "#F5ECD9" }}>
       <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6" style={{ color: "#2F4A3A" }}>Inventory</h1>
+        <h1 className="text-2xl font-bold mb-6" style={{ color: "#2F4A3A" }}>Inventory</h1>
 
-      {/* Tab Navigation */}
-      <InventoryTabs tabs={TABS} activeTab={activeTab} onTabChange={setActiveTab} />
+        <InventoryTabs tabs={TABS} activeTab={activeTab} onTabChange={setActiveTab} />
 
-      {/* Items list grouped by category */}
-      <InventoryList items={filteredItems} />
+        <InventoryList items={filteredItems} onDelete={handleDeleteItem} />
+
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="fixed bottom-6 right-6 px-5 py-3 rounded-full text-sm font-medium shadow"
+          style={{ backgroundColor: "#D7B98E", color: "#2F4A3A" }}
+        >
+          + Add Item
+        </button>
+
+        {isModalOpen && (
+          <InventoryAddModal
+            onConfirm={handleAddItem}
+            onCancel={() => setIsModalOpen(false)}
+          />
+        )}
       </div>
     </div>
   );
