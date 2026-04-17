@@ -11,7 +11,7 @@
 import { useState } from "react";
 import InventoryItem from "@/components/inventory/InventoryItem";
 
-export default function InventoryCategorySection({ category, items }) {
+export default function InventoryCategorySection({ category, items, onDelete }) {
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
@@ -30,7 +30,7 @@ export default function InventoryCategorySection({ category, items }) {
       {isExpanded && (
         <div className="flex flex-col gap-2">
           {items.map((item) => (
-            <InventoryItem key={item.id} item={item} />
+            <InventoryItem key={item.id} item={item} onDelete={onDelete}/>
           ))}
         </div>
       )}

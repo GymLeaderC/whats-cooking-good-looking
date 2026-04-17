@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-export default function InventoryItem({ item }) {
+export default function InventoryItem({ item, onDelete }) {
   return (
     <div
       className="flex items-center justify-between px-4 py-3 rounded-lg border"
@@ -17,12 +17,21 @@ export default function InventoryItem({ item }) {
           {item.quantity} {item.unit}
         </p>
       </div>
-      <span
-        className="text-xs px-2 py-1 rounded"
-        style={{ backgroundColor: "#9FB3A6", color: "#2F4A3A" }}
-      >
-        {item.category}
-      </span>
+      <div className="flex items-center gap-2">
+        <span
+          className="text-xs px-2 py-1 rounded"
+          style={{ backgroundColor: "#9FB3A6", color: "#2F4A3A" }}
+        >
+          {item.category}
+        </span>
+        <button
+          onClick={() => onDelete(item.id)}
+          className="text-xs px-2 py-1 rounded hover:opacity-80"
+          style={{ backgroundColor: "#C97B6B", color: "#fff" }}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 }

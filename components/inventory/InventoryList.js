@@ -10,7 +10,7 @@
 
 import InventoryCategorySection from "@/components/inventory/InventoryCategorySection";
 
-export default function InventoryList({ items }) {
+export default function InventoryList({ items, onDelete }) {
   const groupedByCategory = items.reduce((groups, item) => {
     const category = item.category || "Other";
     
@@ -22,7 +22,7 @@ export default function InventoryList({ items }) {
   return (
     <div className="space-y-4">
       {Object.entries(groupedByCategory).map(([category, categoryItems]) => (
-        <InventoryCategorySection key={category} category={category} items={categoryItems} />
+        <InventoryCategorySection key={category} category={category} items={categoryItems} onDelete={onDelete} />
       ))}
     </div>
   );
