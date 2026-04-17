@@ -5,10 +5,8 @@
  * @version 1.0.0
  */
 
-export default function Home() {
-  return (
-    <div>
-      <h1>Welcome</h1>
-    </div>
-  );
+import { redirect } from "next/navigation";
+
+export default function RootPage() {
+  redirect("/login");
 }
