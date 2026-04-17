@@ -13,9 +13,9 @@ import { useHousehold } from "@/context/HouseholdContext";
 
 const SUMMARY_CARDS = [
   { href: "/inventory",    label: "Inventory",    subtitle: "Track what you have on hand" },
+  { href: "/grocery-list", label: "Grocery List", subtitle: "Build your shopping list" },
   { href: "/recipes",      label: "Recipes",      subtitle: "Browse and save your recipes" },
   { href: "/meal-planner", label: "Meal Planner", subtitle: "Plan meals for the week" },
-  { href: "/grocery-list", label: "Grocery List", subtitle: "Build your shopping list" },
 ];
 
 export default function DashboardPage() {
